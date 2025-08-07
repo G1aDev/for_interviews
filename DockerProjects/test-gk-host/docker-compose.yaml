@@ -1,0 +1,28 @@
+services:
+  tomcat:
+    build: ./tomcat
+    ports:
+      - 8080:8080
+    networks:
+      tomcat_network:
+        ipv4_address: 192.168.1.65
+  tomcat2:
+    build: ./tomcat2
+    ports:
+      - 8081:8081
+    networks:
+      tomcat_network:
+        ipv4_address: 192.168.1.66
+  hapryoxy:
+    build: ./haproxy
+    ports:
+      - 80:80
+    networks:
+      tomcat_network:
+        ipv4_address: 192.168.1.64
+networks:
+  tomcat_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.1.0/24
