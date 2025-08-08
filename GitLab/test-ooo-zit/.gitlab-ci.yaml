@@ -1,0 +1,12 @@
+stages: # Определяет этапы пайплайна (в данном случае только test).
+  - test
+
+nginx_check: # Название задачи (job), которая выполняется на этапе test.
+  stage: test
+  script: # Команды, которые выполняются в рамках задачи.
+    - |
+      if which nginx &>/dev/null; then
+        echo "Nginx installed. Version: $(nginx -v 2>&1)"
+      else
+        echo "Nginx not installed. Version"        
+      fi
